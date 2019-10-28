@@ -5,7 +5,6 @@ from framework.browser.browser import Browser
 from framework.utils.cloudinary_utils import cloudinary_authorize, cloudinary_upload_file
 from framework.utils.logger import step
 from framework.utils.random_utils import get_random_string
-from framework.utils.waiter import implicit_wait
 from resources import config
 
 
@@ -20,7 +19,7 @@ class TestIFrame:
             os.remove(config.PATH_TO_SAVE_SCREENSHOT)
         cloudinary_authorize()
         self.browser.maximize()
-        implicit_wait(config.TIMEOUT)
+        self.browser.set_implicitly_wait(config.TIMEOUT)
 
     def teardown_method(self):
         self.browser.close()
@@ -29,7 +28,7 @@ class TestIFrame:
         step(f"Go to {config.URL}", self.counter)
         self.counter += 1
         self.browser.enter_url(config.URL)
-        i_frame_page = IFramePage(By.XPATH, "//h3[text()='An iFrame containing the TinyMCE WYSIWYG Editor']")
+        i_frame_page = IFramePage()
         assert i_frame_page.is_page_opened(), "Page wasn't opened"
 
         step("Clear input field and enter random line", self.counter)

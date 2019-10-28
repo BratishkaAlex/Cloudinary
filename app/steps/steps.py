@@ -9,7 +9,7 @@ from framework.utils.logger import info
 from resources import config
 
 browser = Browser()
-iframe_page = IFramePage(By.XPATH, "//h3[text()='An iFrame containing the TinyMCE WYSIWYG Editor']")
+iframe_page = IFramePage()
 IFRAME_LOC = "mce_0_ifr"
 
 

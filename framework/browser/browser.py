@@ -24,6 +24,9 @@ class Browser(metaclass=Singleton):
         debug("Close browser")
         self.driver.close()
 
+    def set_implicitly_wait(self, timeout):
+        self.driver.implicitly_wait(timeout)
+
     def get_current_url(self):
         debug("Get current browser")
         return self.driver.current_url
