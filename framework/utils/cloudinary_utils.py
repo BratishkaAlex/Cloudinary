@@ -1,7 +1,7 @@
 import cloudinary.uploader
 
 from framework.utils.logger import info
-from framework.utils.utils_resources import cloudinary_config
+from resources import cloudinary_config
 
 
 def cloudinary_authorize():
