@@ -1,7 +1,6 @@
 from framework.browser.browser_factory import get_driver
 from framework.models.singleton import Singleton
 from framework.utils.logger import debug
-from resources import config
 
 
 class Browser(metaclass=Singleton):
@@ -39,6 +38,6 @@ class Browser(metaclass=Singleton):
         debug("Change focus on default content")
         self.driver.switch_to_default_content()
 
-    def save_screenshot(self):
+    def save_screenshot(self, path_to_save_screenshot):
         debug("Make screenshot")
-        self.driver.get_screenshot_as_file(config.PATH_TO_SAVE_SCREENSHOT)
+        self.driver.get_screenshot_as_file(path_to_save_screenshot)

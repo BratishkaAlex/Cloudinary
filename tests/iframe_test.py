@@ -2,7 +2,10 @@ import os
 
 from app.steps.steps import *
 from framework.browser.browser import Browser
-from framework.utils.cloudinary_utils import cloudinary_authorize, cloudinary_upload_file
+from framework.utils.cloudinary_utils import cloudinary_authorize, cloudinary_upload_file, \
+    get_link_to_download_from_cloudinary
+from framework.utils.comparison_utils import check_that_images_are_equal
+from framework.utils.download_utils import download_file
 from framework.utils.logger import step
 from framework.utils.random_utils import get_random_string
 from resources import config
@@ -45,7 +48,7 @@ class TestIFrame:
 
         step("Make screenshot", self.counter)
         self.counter += 1
-        browser.save_screenshot()
+        browser.save_screenshot(config.PATH_TO_SAVE_SCREENSHOT)
 
         step("Upload screenshot on cloudinary", self.counter)
         self.counter += 1
@@ -53,4 +56,6 @@ class TestIFrame:
         cloudinary_upload_file(config.PATH_TO_SAVE_SCREENSHOT, photo_public_id)
 
         step("Check that two images are same", self.counter)
-        check_that_images_are_same(photo_public_id)
+        download_file(get_link_to_download_from_cloudinary(photo_public_id), config.PATH_TO_DOWNLOAD_PICTURE)
+        assert check_that_images_are_equal(config.PATH_TO_DOWNLOAD_PICTURE,
+                                           config.PATH_TO_SAVE_SCREENSHOT), "Images are not the same"

@@ -10,9 +10,9 @@ def cloudinary_authorize():
                       api_secret=cloudinary_config.API_SECRET)
 
 
-def cloudinary_upload_file(path, public_id):
+def cloudinary_upload_file(path_to_uploaded_file, public_id):
     info("Upload local file on cloudinary")
-    cloudinary.uploader.upload(path, public_id=public_id)
+    cloudinary.uploader.upload(path_to_uploaded_file, public_id=public_id)
 
 
 def get_link_to_download_from_cloudinary(public_id):
